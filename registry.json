@@ -1,0 +1,81 @@
+{
+  "crawlers": [
+    {
+      "slug": "reddit",
+      "name": "Reddit",
+      "description": "Crawls Reddit posts and comments from subreddits",
+      "api_type": "api",
+      "file": "crawlers/reddit.ts"
+    },
+    {
+      "slug": "github",
+      "name": "GitHub",
+      "description": "Crawls GitHub issues and discussions from repositories",
+      "api_type": "api",
+      "file": "crawlers/github.ts"
+    },
+    {
+      "slug": "hackernews",
+      "name": "Hacker News",
+      "description": "Crawls Hacker News stories and comments",
+      "api_type": "api",
+      "file": "crawlers/hackernews.ts"
+    },
+    {
+      "slug": "trustpilot",
+      "name": "Trustpilot",
+      "description": "Crawls Trustpilot reviews for businesses",
+      "api_type": "browser",
+      "file": "crawlers/trustpilot.ts"
+    },
+    {
+      "slug": "g2",
+      "name": "G2",
+      "description": "Crawls G2 product reviews",
+      "api_type": "browser",
+      "file": "crawlers/g2.ts"
+    },
+    {
+      "slug": "capterra",
+      "name": "Capterra",
+      "description": "Crawls Capterra software reviews",
+      "api_type": "browser",
+      "file": "crawlers/capterra.ts"
+    },
+    {
+      "slug": "glassdoor",
+      "name": "Glassdoor",
+      "description": "Crawls Glassdoor company reviews",
+      "api_type": "browser",
+      "file": "crawlers/glassdoor.ts"
+    },
+    {
+      "slug": "google_play",
+      "name": "Google Play Store",
+      "description": "Crawls Google Play Store app reviews",
+      "api_type": "api",
+      "file": "crawlers/google_play.ts"
+    },
+    {
+      "slug": "ios_appstore",
+      "name": "iOS App Store",
+      "description": "Crawls iOS App Store reviews",
+      "api_type": "browser",
+      "file": "crawlers/ios_appstore.ts"
+    },
+    {
+      "slug": "gmaps",
+      "name": "Google Maps",
+      "description": "Crawls Google Maps place reviews",
+      "api_type": "api",
+      "file": "crawlers/gmaps.ts"
+    },
+    {
+      "slug": "x",
+      "name": "X (Twitter)",
+      "description": "Crawls X/Twitter posts and mentions",
+      "api_type": "browser",
+      "file": "crawlers/x.ts"
+    }
+  ]
+}
