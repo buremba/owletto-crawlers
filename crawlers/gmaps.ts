@@ -5,7 +5,7 @@
 
 import { type Static, Type } from '@owletto/sdk';
 import { logger } from '@owletto/sdk';
-import type { Checkpoint, Content, CrawlResult, Env, SearchResult } from '@owletto/sdk';
+import type { Checkpoint, Content, CrawlResult, CrawlerAuthSchema, Env, SearchResult } from '@owletto/sdk';
 import { BaseCrawler, calculateEngagementScore } from '@owletto/sdk';
 import { httpClient } from '@owletto/sdk';
 
@@ -44,6 +44,22 @@ export class GoogleMapsCrawler extends BaseCrawler {
   readonly displayName = 'Google Maps';
   readonly apiType = 'api' as const;
   readonly crawlerType = 'entity' as const;
+  readonly authSchema: CrawlerAuthSchema = {
+    methods: [
+      {
+        type: 'env_keys',
+        required: true,
+        scope: 'source',
+        fields: [
+          {
+            key: 'GOOGLE_MAPS_API_KEY',
+            label: 'Google Maps API Key',
+            secret: true,
+          },
+        ],
+      },
+    ],
+  };
   readonly optionsSchema = GoogleMapsOptionsSchema;
   readonly defaultScoringConfig = {
     engagement_weight: 0.0, // No engagement metrics on Google Maps

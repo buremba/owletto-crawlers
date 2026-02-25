@@ -114,7 +114,23 @@
       "name": "Google Maps",
       "description": "Crawls Google Maps place reviews",
       "api_type": "api",
-      "file": "crawlers/gmaps.ts"
+      "file": "crawlers/gmaps.ts",
+      "auth_schema": {
+        "methods": [
+          {
+            "type": "env_keys",
+            "required": true,
+            "scope": "source",
+            "fields": [
+              {
+                "key": "GOOGLE_MAPS_API_KEY",
+                "label": "Google Maps API Key",
+                "secret": true
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "slug": "x",
