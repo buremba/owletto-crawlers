@@ -166,7 +166,29 @@ export class RedditCrawler extends ApiPaginatedCrawler<
     PERCENT_RANK() OVER (PARTITION BY f.source_id ORDER BY f.score) * 100 * 0.6 +
     LEAST(f.content_length / 20.0, 100) * 0.4
   `;
-  readonly requiredEnvKeys = ['REDDIT_CLIENT_ID', 'REDDIT_CLIENT_SECRET'];
+  readonly authSchema = {
+    methods: [
+      {
+        type: 'env_keys' as const,
+        required: true,
+        scope: 'source' as const,
+        fields: [
+          {
+            key: 'REDDIT_CLIENT_ID',
+            label: 'Reddit Client ID',
+            description: 'OAuth app client ID from https://www.reddit.com/prefs/apps',
+          },
+          {
+            key: 'REDDIT_CLIENT_SECRET',
+            label: 'Reddit Client Secret',
+            description: 'OAuth app client secret from https://www.reddit.com/prefs/apps',
+            secret: true,
+          },
+        ],
+        description: 'Required for authenticated Reddit API access.',
+      },
+    ],
+  };
 
   // OAuth token cache
   private accessToken: string | null = null;

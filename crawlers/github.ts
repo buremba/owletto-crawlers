@@ -178,17 +178,32 @@ export class GitHubCrawler extends ApiPaginatedCrawler<
     LEAST(f.content_length / 20.0, 100) * 0.4
   `;
 
-  /**
-   * GitHub OAuth provider for user-authenticated access
-   * Enables access to private repositories and higher rate limits
-   * Falls back to GITHUB_TOKEN env var if no user credential is linked
-   */
-  readonly oauthProvider = {
-    provider: 'github',
-    requiredScopes: ['repo', 'read:user'],
-    description:
-      'GitHub OAuth enables access to private repositories and higher rate limits (5000 req/hour)',
-    required: false, // Can fall back to GITHUB_TOKEN env var
+  readonly authSchema = {
+    methods: [
+      {
+        type: 'oauth' as const,
+        provider: 'github',
+        requiredScopes: ['repo', 'read:user'],
+        description:
+          'GitHub OAuth enables access to private repositories and higher rate limits (5000 req/hour)',
+        required: false,
+        scope: 'source' as const,
+      },
+      {
+        type: 'env_keys' as const,
+        required: false,
+        scope: 'source' as const,
+        description: 'Optional fallback token when OAuth credential is not linked.',
+        fields: [
+          {
+            key: 'GITHUB_TOKEN',
+            label: 'GitHub Token',
+            secret: true,
+            description: 'Personal access token used as fallback auth for API requests.',
+          },
+        ],
+      },
+    ],
   };
 
   private readonly BASE_URL = 'https://api.github.com';

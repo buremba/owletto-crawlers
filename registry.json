@@ -5,14 +5,60 @@
       "name": "Reddit",
       "description": "Crawls Reddit posts and comments from subreddits",
       "api_type": "api",
-      "file": "crawlers/reddit.ts"
+      "file": "crawlers/reddit.ts",
+      "auth_schema": {
+        "methods": [
+          {
+            "type": "env_keys",
+            "required": true,
+            "scope": "source",
+            "fields": [
+              {
+                "key": "REDDIT_CLIENT_ID",
+                "label": "Reddit Client ID"
+              },
+              {
+                "key": "REDDIT_CLIENT_SECRET",
+                "label": "Reddit Client Secret",
+                "secret": true
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "slug": "github",
       "name": "GitHub",
       "description": "Crawls GitHub issues and discussions from repositories",
       "api_type": "api",
-      "file": "crawlers/github.ts"
+      "file": "crawlers/github.ts",
+      "auth_schema": {
+        "methods": [
+          {
+            "type": "oauth",
+            "provider": "github",
+            "requiredScopes": [
+              "repo",
+              "read:user"
+            ],
+            "required": false,
+            "scope": "source"
+          },
+          {
+            "type": "env_keys",
+            "required": false,
+            "scope": "source",
+            "fields": [
+              {
+                "key": "GITHUB_TOKEN",
+                "label": "GitHub Token",
+                "secret": true
+              }
+            ]
+          }
+        ]
+      }
     },
     {
       "slug": "hackernews",
