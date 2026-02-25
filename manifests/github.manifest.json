@@ -20,11 +20,13 @@
     "properties": {
       "repo_owner": {
         "description": "Repository owner (user or organization)",
+        "example": "openai",
         "minLength": 1,
         "type": "string"
       },
       "repo_name": {
         "description": "Repository name",
+        "example": "openai-python",
         "minLength": 1,
         "type": "string"
       },
@@ -59,6 +61,10 @@
       },
       "labels_filter": {
         "description": "Filter by specific labels (optional, applies to issues and PRs only)",
+        "example": [
+          "bug",
+          "enhancement"
+        ],
         "minItems": 1,
         "type": "array",
         "items": {
@@ -68,6 +74,7 @@
       },
       "lookback_days": {
         "description": "Number of days to look back for historical data. Default: 365 (1 year). Maximum: 730 (2 years).",
+        "example": 120,
         "minimum": 1,
         "maximum": 730,
         "default": 365,
@@ -101,19 +108,22 @@
           {
             "key": "GITHUB_CLIENT_ID",
             "label": "GitHub Client ID",
-            "description": "OAuth App client ID used for GitHub account linking."
+            "description": "OAuth App client ID used for GitHub account linking.",
+            "example": "github_oauth_client_id"
           },
           {
             "key": "GITHUB_CLIENT_SECRET",
             "label": "GitHub Client Secret",
             "secret": true,
-            "description": "OAuth App client secret used for GitHub account linking."
+            "description": "OAuth App client secret used for GitHub account linking.",
+            "example": "github_oauth_client_secret"
           },
           {
             "key": "GITHUB_TOKEN",
             "label": "GitHub Token",
             "secret": true,
-            "description": "Personal access token used as fallback auth for API requests."
+            "description": "Personal access token used as fallback auth for API requests.",
+            "example": "github_pat_token"
           }
         ]
       }

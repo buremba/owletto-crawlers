@@ -15,11 +15,13 @@
     "properties": {
       "place_id": {
         "description": "Google Place ID for the business",
+        "example": "ChIJN1t_tDeuEmsRUsoyG83frY4",
         "minLength": 1,
         "type": "string"
       },
       "business_name": {
         "description": "Business name for search-based fallback if place_id not provided",
+        "example": "Blue Bottle Coffee",
         "minLength": 1,
         "type": "string"
       }
@@ -35,6 +37,7 @@
           {
             "key": "GOOGLE_MAPS_API_KEY",
             "label": "Google Maps API Key",
+            "example": "AIzaSyExampleKey",
             "secret": true
           }
         ]
