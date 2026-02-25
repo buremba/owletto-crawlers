@@ -3,10 +3,10 @@
  * Fetches app reviews using iTunes Search API and RSS feeds
  */
 
-import { type Static, Type } from '@sinclair/typebox';
-import logger from '@/utils/logger';
-import type { Checkpoint, Content, CrawlResult, Env, SearchResult } from './base';
-import { BaseCrawler, calculateEngagementScore } from './base';
+import { type Static, Type } from '@owletto/sdk';
+import { logger } from '@owletto/sdk';
+import type { Checkpoint, Content, CrawlResult, Env, SearchResult } from '@owletto/sdk';
+import { BaseCrawler, calculateEngagementScore } from '@owletto/sdk';
 
 // Apple blocks Workers - use native fetch with browser-like headers
 const IOS_HEADERS = {

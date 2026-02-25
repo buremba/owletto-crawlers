@@ -3,11 +3,11 @@
  * Fetches business reviews using Google Places API
  */
 
-import { type Static, Type } from '@sinclair/typebox';
-import logger from '@/utils/logger';
-import type { Checkpoint, Content, CrawlResult, Env, SearchResult } from './base';
-import { BaseCrawler, calculateEngagementScore } from './base';
-import { httpClient } from './http';
+import { type Static, Type } from '@owletto/sdk';
+import { logger } from '@owletto/sdk';
+import type { Checkpoint, Content, CrawlResult, Env, SearchResult } from '@owletto/sdk';
+import { BaseCrawler, calculateEngagementScore } from '@owletto/sdk';
+import { httpClient } from '@owletto/sdk';
 
 /**
  * Google Maps-specific options schema

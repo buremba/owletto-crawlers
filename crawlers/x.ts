@@ -3,12 +3,12 @@
  * Fetches tweets using twitter-scraper library
  */
 
-import { type Static, Type } from '@sinclair/typebox';
-import { Scraper } from '@the-convocation/twitter-scraper';
-import { cycleTLSExit, cycleTLSFetch } from '@the-convocation/twitter-scraper/cycletls';
-import logger from '@/utils/logger';
-import type { Checkpoint, Content, CrawlResult, Env, SearchResult } from './base';
-import { BaseCrawler, calculateEngagementScore } from './base';
+import { type Static, Type } from '@owletto/sdk';
+import { Scraper } from 'npm:@the-convocation/twitter-scraper@0.21.1';
+import { cycleTLSExit, cycleTLSFetch } from 'npm:@the-convocation/twitter-scraper@0.21.1/cycletls';
+import { logger } from '@owletto/sdk';
+import type { Checkpoint, Content, CrawlResult, Env, SearchResult } from '@owletto/sdk';
+import { BaseCrawler, calculateEngagementScore } from '@owletto/sdk';
 
 /**
  * X (Twitter)-specific options schema

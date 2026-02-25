@@ -7,11 +7,11 @@
  * Refactored to use ApiPaginatedCrawler for reusable pagination logic.
  */
 
-import { type Static, Type } from '@sinclair/typebox';
-import type { KyInstance } from 'ky';
-import { HTTPError } from 'ky';
-import logger from '@/utils/logger';
-import { ApiPaginatedCrawler } from './api-paginated';
+import { type Static, Type } from '@owletto/sdk';
+import type { KyInstance } from '@owletto/sdk';
+import { HTTPError } from '@owletto/sdk';
+import { logger } from '@owletto/sdk';
+import { ApiPaginatedCrawler } from '@owletto/sdk';
 import type {
   Checkpoint,
   Content,
@@ -21,10 +21,10 @@ import type {
   ParentSourceDefinition,
   SearchResult,
   SessionState,
-} from './base';
-import { calculateEngagementScore, RateLimitError } from './base';
-import { createAuthenticatedClient, createHttpClient } from './http';
-import type { PageFetchResult, PaginatedCheckpoint } from './paginated';
+} from '@owletto/sdk';
+import { calculateEngagementScore, RateLimitError } from '@owletto/sdk';
+import { createAuthenticatedClient, createHttpClient } from '@owletto/sdk';
+import type { PageFetchResult, PaginatedCheckpoint } from '@owletto/sdk';
 
 /**
  * GitHub-specific options schema

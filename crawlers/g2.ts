@@ -3,17 +3,17 @@
  * Scrapes B2B software reviews from G2.com using browser rendering with stealth mode.
  */
 
-import { type Static, Type } from '@sinclair/typebox';
+import { type Static, Type } from '@owletto/sdk';
 import type { Page } from 'playwright';
-import logger from '@/utils/logger';
-import type { Content, CrawlerOptions, Env, SearchResult } from './base';
-import { calculateEngagementScore } from './base';
+import { logger } from '@owletto/sdk';
+import type { Content, CrawlerOptions, Env, SearchResult } from '@owletto/sdk';
+import { calculateEngagementScore } from '@owletto/sdk';
 import {
   type BrowserCrawlerConfig,
   BrowserPaginatedCrawler,
   type BrowserPaginationConfig,
 } from './browser-paginated';
-import type { PaginatedCheckpoint } from './paginated';
+import type { PaginatedCheckpoint } from '@owletto/sdk';
 
 /**
  * G2-specific options schema

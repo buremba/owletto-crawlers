@@ -7,12 +7,12 @@
  * Refactored to use ApiPaginatedCrawler for reusable pagination logic.
  */
 
-import { type Static, Type } from '@sinclair/typebox';
-import type { KyInstance } from 'ky';
-import { HTTPError } from 'ky';
-import logger from '@/utils/logger';
-import { withHttpRetry } from '@/utils/retry';
-import { ApiPaginatedCrawler } from './api-paginated';
+import { type Static, Type } from '@owletto/sdk';
+import type { KyInstance } from '@owletto/sdk';
+import { HTTPError } from '@owletto/sdk';
+import { logger } from '@owletto/sdk';
+import { withHttpRetry } from '@owletto/sdk';
+import { ApiPaginatedCrawler } from '@owletto/sdk';
 import type {
   Checkpoint,
   Content,
@@ -21,10 +21,10 @@ import type {
   Env,
   ParentSourceDefinition,
   SearchResult,
-} from './base';
-import { calculateEngagementScore, RateLimitError } from './base';
-import { createAuthenticatedClient, httpClient } from './http';
-import type { PageFetchResult, PaginatedCheckpoint } from './paginated';
+} from '@owletto/sdk';
+import { calculateEngagementScore, RateLimitError } from '@owletto/sdk';
+import { createAuthenticatedClient, httpClient } from '@owletto/sdk';
+import type { PageFetchResult, PaginatedCheckpoint } from '@owletto/sdk';
 
 /**
  * Reddit-specific environment variables

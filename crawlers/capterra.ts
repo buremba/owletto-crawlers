@@ -3,18 +3,18 @@
  * Scrapes software reviews from Capterra using browser rendering with stealth mode.
  */
 
-import { type Static, Type } from '@sinclair/typebox';
+import { type Static, Type } from '@owletto/sdk';
 import type { Page } from 'playwright';
-import logger from '@/utils/logger';
-import type { Content, CrawlerOptions, Env, SearchResult } from './base';
-import { calculateEngagementScore } from './base';
+import { logger } from '@owletto/sdk';
+import type { Content, CrawlerOptions, Env, SearchResult } from '@owletto/sdk';
+import { calculateEngagementScore } from '@owletto/sdk';
 import {
   type BrowserCrawlerConfig,
   BrowserPaginatedCrawler,
   type BrowserPaginationConfig,
 } from './browser-paginated';
-import type { PaginatedCheckpoint } from './paginated';
-import { captureErrorArtifacts, launchBrowser } from './utils/browser-launcher';
+import type { PaginatedCheckpoint } from '@owletto/sdk';
+import { captureErrorArtifacts, launchBrowser } from '@owletto/sdk';
 
 /**
  * Capterra-specific options schema

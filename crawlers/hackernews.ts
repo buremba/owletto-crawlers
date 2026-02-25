@@ -7,10 +7,10 @@
  * Refactored to use ApiPaginatedCrawler for reusable pagination logic.
  */
 
-import { type Static, Type } from '@sinclair/typebox';
-import TurndownService from 'turndown';
-import logger from '@/utils/logger';
-import { ApiPaginatedCrawler } from './api-paginated';
+import { type Static, Type } from '@owletto/sdk';
+import TurndownService from 'npm:turndown@7.2.2';
+import { logger } from '@owletto/sdk';
+import { ApiPaginatedCrawler } from '@owletto/sdk';
 import type {
   Checkpoint,
   Content,
@@ -19,10 +19,10 @@ import type {
   Env,
   ParentSourceDefinition,
   SearchResult,
-} from './base';
-import { calculateEngagementScore } from './base';
-import { httpClient } from './http';
-import type { PageFetchResult, PaginatedCheckpoint } from './paginated';
+} from '@owletto/sdk';
+import { calculateEngagementScore } from '@owletto/sdk';
+import { httpClient } from '@owletto/sdk';
+import type { PageFetchResult, PaginatedCheckpoint } from '@owletto/sdk';
 
 /**
  * HackerNews-specific options schema

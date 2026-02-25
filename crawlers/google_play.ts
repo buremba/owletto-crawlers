@@ -3,11 +3,11 @@
  * Fetches app reviews using google-play-scraper npm package
  */
 
-import { type Static, Type } from '@sinclair/typebox';
-import gplay from 'google-play-scraper';
-import logger from '@/utils/logger';
-import type { Checkpoint, Content, CrawlResult, Env, SearchResult } from './base';
-import { BaseCrawler, calculateEngagementScore } from './base';
+import { type Static, Type } from '@owletto/sdk';
+import gplay from 'npm:google-play-scraper@10.1.2';
+import { logger } from '@owletto/sdk';
+import type { Checkpoint, Content, CrawlResult, Env, SearchResult } from '@owletto/sdk';
+import { BaseCrawler, calculateEngagementScore } from '@owletto/sdk';
 
 /**
  * Google Play Store-specific options schema
