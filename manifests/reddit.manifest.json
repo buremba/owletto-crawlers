@@ -1,0 +1,91 @@
+{
+  "manifest_version": 1,
+  "slug": "reddit",
+  "name": "Reddit",
+  "description": "Crawls Reddit posts and comments from subreddits",
+  "type": "reddit",
+  "api_type": "api",
+  "crawler_type": "entity",
+  "file": "crawlers/reddit.ts",
+  "has_discover": true,
+  "options_schema": {
+    "description": "Reddit crawler options - requires either subreddit or search_terms, and content_type",
+    "$id": "RedditOptions",
+    "type": "object",
+    "required": [
+      "content_type"
+    ],
+    "properties": {
+      "subreddit": {
+        "description": "Subreddit name without r/ prefix (e.g., \"spotify\"). Can be combined with search_terms for subreddit-scoped search.",
+        "minLength": 1,
+        "type": "string"
+      },
+      "search_terms": {
+        "description": "Search terms to query. If subreddit is provided, searches within that subreddit. Otherwise searches all of Reddit.",
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "content_type": {
+        "description": "Content type: \"posts\" or \"comments\". Each crawler does ONE thing only.",
+        "anyOf": [
+          {
+            "const": "posts",
+            "type": "string"
+          },
+          {
+            "const": "comments",
+            "type": "string"
+          }
+        ]
+      },
+      "lookback_days": {
+        "description": "Number of days to look back for historical data. Default: 365 (1 year). Maximum: 730 (2 years).",
+        "minimum": 1,
+        "maximum": 730,
+        "default": 365,
+        "type": "number"
+      }
+    }
+  },
+  "auth_schema": {
+    "methods": [
+      {
+        "type": "oauth",
+        "provider": "reddit",
+        "requiredScopes": [
+          "read",
+          "history"
+        ],
+        "authorizationUrl": "https://www.reddit.com/api/v1/authorize",
+        "tokenUrl": "https://www.reddit.com/api/v1/access_token",
+        "clientIdKey": "REDDIT_CLIENT_ID",
+        "clientSecretKey": "REDDIT_CLIENT_SECRET",
+        "required": false,
+        "scope": "source",
+        "description": "Optional Reddit OAuth for authenticated access and improved rate limits. Without credentials, crawler uses public JSON endpoints."
+      },
+      {
+        "type": "env_keys",
+        "required": false,
+        "scope": "source",
+        "fields": [
+          {
+            "key": "REDDIT_CLIENT_ID",
+            "label": "Reddit Client ID",
+            "description": "OAuth app client ID from https://www.reddit.com/prefs/apps"
+          },
+          {
+            "key": "REDDIT_CLIENT_SECRET",
+            "label": "Reddit Client Secret",
+            "description": "OAuth app client secret from https://www.reddit.com/prefs/apps",
+            "secret": true
+          }
+        ],
+        "description": "Optional OAuth app credentials for authenticated Reddit API access. Leave empty to run in public mode."
+      }
+    ]
+  }
+}

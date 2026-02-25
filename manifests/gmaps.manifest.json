@@ -1,0 +1,44 @@
+{
+  "manifest_version": 1,
+  "slug": "gmaps",
+  "name": "Google Maps",
+  "description": "Crawls Google Maps place reviews",
+  "type": "gmaps",
+  "api_type": "api",
+  "crawler_type": "entity",
+  "file": "crawlers/gmaps.ts",
+  "has_discover": true,
+  "options_schema": {
+    "description": "Google Maps crawler options - requires either place_id or business_name",
+    "$id": "GoogleMapsOptions",
+    "type": "object",
+    "properties": {
+      "place_id": {
+        "description": "Google Place ID for the business",
+        "minLength": 1,
+        "type": "string"
+      },
+      "business_name": {
+        "description": "Business name for search-based fallback if place_id not provided",
+        "minLength": 1,
+        "type": "string"
+      }
+    }
+  },
+  "auth_schema": {
+    "methods": [
+      {
+        "type": "env_keys",
+        "required": true,
+        "scope": "source",
+        "fields": [
+          {
+            "key": "GOOGLE_MAPS_API_KEY",
+            "label": "Google Maps API Key",
+            "secret": true
+          }
+        ]
+      }
+    ]
+  }
+}

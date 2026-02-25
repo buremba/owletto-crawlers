@@ -1,143 +1,48 @@
 {
   "crawlers": [
     {
-      "slug": "reddit",
-      "name": "Reddit",
-      "description": "Crawls Reddit posts and comments from subreddits",
-      "api_type": "api",
-      "file": "crawlers/reddit.ts",
-      "auth_schema": {
-        "methods": [
-          {
-            "type": "env_keys",
-            "required": true,
-            "scope": "source",
-            "fields": [
-              {
-                "key": "REDDIT_CLIENT_ID",
-                "label": "Reddit Client ID"
-              },
-              {
-                "key": "REDDIT_CLIENT_SECRET",
-                "label": "Reddit Client Secret",
-                "secret": true
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "slug": "github",
-      "name": "GitHub",
-      "description": "Crawls GitHub issues and discussions from repositories",
-      "api_type": "api",
-      "file": "crawlers/github.ts",
-      "auth_schema": {
-        "methods": [
-          {
-            "type": "oauth",
-            "provider": "github",
-            "requiredScopes": [
-              "repo",
-              "read:user"
-            ],
-            "required": false,
-            "scope": "source"
-          },
-          {
-            "type": "env_keys",
-            "required": false,
-            "scope": "source",
-            "fields": [
-              {
-                "key": "GITHUB_TOKEN",
-                "label": "GitHub Token",
-                "secret": true
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "slug": "hackernews",
-      "name": "Hacker News",
-      "description": "Crawls Hacker News stories and comments",
-      "api_type": "api",
-      "file": "crawlers/hackernews.ts"
-    },
-    {
-      "slug": "trustpilot",
-      "name": "Trustpilot",
-      "description": "Crawls Trustpilot reviews for businesses",
-      "api_type": "browser",
-      "file": "crawlers/trustpilot.ts"
+      "slug": "capterra",
+      "manifest": "manifests/capterra.manifest.json"
     },
     {
       "slug": "g2",
-      "name": "G2",
-      "description": "Crawls G2 product reviews",
-      "api_type": "browser",
-      "file": "crawlers/g2.ts"
+      "manifest": "manifests/g2.manifest.json"
     },
     {
-      "slug": "capterra",
-      "name": "Capterra",
-      "description": "Crawls Capterra software reviews",
-      "api_type": "browser",
-      "file": "crawlers/capterra.ts"
+      "slug": "github",
+      "manifest": "manifests/github.manifest.json"
     },
     {
       "slug": "glassdoor",
-      "name": "Glassdoor",
-      "description": "Crawls Glassdoor company reviews",
-      "api_type": "browser",
-      "file": "crawlers/glassdoor.ts"
-    },
-    {
-      "slug": "google_play",
-      "name": "Google Play Store",
-      "description": "Crawls Google Play Store app reviews",
-      "api_type": "api",
-      "file": "crawlers/google_play.ts"
-    },
-    {
-      "slug": "ios_appstore",
-      "name": "iOS App Store",
-      "description": "Crawls iOS App Store reviews",
-      "api_type": "browser",
-      "file": "crawlers/ios_appstore.ts"
+      "manifest": "manifests/glassdoor.manifest.json"
     },
     {
       "slug": "gmaps",
-      "name": "Google Maps",
-      "description": "Crawls Google Maps place reviews",
-      "api_type": "api",
-      "file": "crawlers/gmaps.ts",
-      "auth_schema": {
-        "methods": [
-          {
-            "type": "env_keys",
-            "required": true,
-            "scope": "source",
-            "fields": [
-              {
-                "key": "GOOGLE_MAPS_API_KEY",
-                "label": "Google Maps API Key",
-                "secret": true
-              }
-            ]
-          }
-        ]
-      }
+      "manifest": "manifests/gmaps.manifest.json"
+    },
+    {
+      "slug": "google_play",
+      "manifest": "manifests/google_play.manifest.json"
+    },
+    {
+      "slug": "hackernews",
+      "manifest": "manifests/hackernews.manifest.json"
+    },
+    {
+      "slug": "ios_appstore",
+      "manifest": "manifests/ios_appstore.manifest.json"
+    },
+    {
+      "slug": "reddit",
+      "manifest": "manifests/reddit.manifest.json"
+    },
+    {
+      "slug": "trustpilot",
+      "manifest": "manifests/trustpilot.manifest.json"
     },
     {
       "slug": "x",
-      "name": "X (Twitter)",
-      "description": "Crawls X/Twitter posts and mentions",
-      "api_type": "browser",
-      "file": "crawlers/x.ts"
+      "manifest": "manifests/x.manifest.json"
     }
   ]
 }

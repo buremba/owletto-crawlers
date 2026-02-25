@@ -12,7 +12,7 @@ import {
   type BrowserCrawlerConfig,
   BrowserPaginatedCrawler,
   type BrowserPaginationConfig,
-} from './browser-paginated';
+} from '@owletto/sdk';
 import type { PaginatedCheckpoint } from '@owletto/sdk';
 import { captureErrorArtifacts, launchBrowser } from '@owletto/sdk';
 

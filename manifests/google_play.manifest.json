@@ -1,0 +1,48 @@
+{
+  "manifest_version": 1,
+  "slug": "google_play",
+  "name": "Google Play Store",
+  "description": "Crawls Google Play Store app reviews",
+  "type": "google_play",
+  "api_type": "api",
+  "crawler_type": "entity",
+  "file": "crawlers/google_play.ts",
+  "has_discover": true,
+  "options_schema": {
+    "description": "Google Play Store crawler options",
+    "$id": "GooglePlayOptions",
+    "type": "object",
+    "required": [
+      "app_id"
+    ],
+    "properties": {
+      "app_id": {
+        "description": "Google Play package name (e.g., \"com.spotify.music\")",
+        "minLength": 1,
+        "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$",
+        "type": "string"
+      },
+      "country": {
+        "description": "ISO country code (default: \"us\")",
+        "minLength": 2,
+        "maxLength": 2,
+        "default": "us",
+        "type": "string"
+      },
+      "lang": {
+        "description": "Language code (default: \"en\")",
+        "minLength": 2,
+        "maxLength": 5,
+        "default": "en",
+        "type": "string"
+      }
+    }
+  },
+  "auth_schema": {
+    "methods": [
+      {
+        "type": "none"
+      }
+    ]
+  }
+}

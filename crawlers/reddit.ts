@@ -169,8 +169,21 @@ export class RedditCrawler extends ApiPaginatedCrawler<
   readonly authSchema = {
     methods: [
       {
+        type: 'oauth' as const,
+        provider: 'reddit',
+        requiredScopes: ['read', 'history'],
+        authorizationUrl: 'https://www.reddit.com/api/v1/authorize',
+        tokenUrl: 'https://www.reddit.com/api/v1/access_token',
+        clientIdKey: 'REDDIT_CLIENT_ID',
+        clientSecretKey: 'REDDIT_CLIENT_SECRET',
+        required: false,
+        scope: 'source' as const,
+        description:
+          'Optional Reddit OAuth for authenticated access and improved rate limits. Without credentials, crawler uses public JSON endpoints.',
+      },
+      {
         type: 'env_keys' as const,
-        required: true,
+        required: false,
         scope: 'source' as const,
         fields: [
           {
@@ -185,7 +198,8 @@ export class RedditCrawler extends ApiPaginatedCrawler<
             secret: true,
           },
         ],
-        description: 'Required for authenticated Reddit API access.',
+        description:
+          'Optional OAuth app credentials for authenticated Reddit API access. Leave empty to run in public mode.',
       },
     ],
   };

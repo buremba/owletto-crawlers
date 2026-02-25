@@ -184,17 +184,32 @@ export class GitHubCrawler extends ApiPaginatedCrawler<
         type: 'oauth' as const,
         provider: 'github',
         requiredScopes: ['repo', 'read:user'],
+        authorizationUrl: 'https://github.com/login/oauth/authorize',
+        tokenUrl: 'https://github.com/login/oauth/access_token',
         description:
           'GitHub OAuth enables access to private repositories and higher rate limits (5000 req/hour)',
         required: false,
         scope: 'source' as const,
+        clientIdKey: 'GITHUB_CLIENT_ID',
+        clientSecretKey: 'GITHUB_CLIENT_SECRET',
       },
       {
         type: 'env_keys' as const,
         required: false,
         scope: 'source' as const,
-        description: 'Optional fallback token when OAuth credential is not linked.',
+        description: 'Optional OAuth app credentials and fallback token.',
         fields: [
+          {
+            key: 'GITHUB_CLIENT_ID',
+            label: 'GitHub Client ID',
+            description: 'OAuth App client ID used for GitHub account linking.',
+          },
+          {
+            key: 'GITHUB_CLIENT_SECRET',
+            label: 'GitHub Client Secret',
+            secret: true,
+            description: 'OAuth App client secret used for GitHub account linking.',
+          },
           {
             key: 'GITHUB_TOKEN',
             label: 'GitHub Token',

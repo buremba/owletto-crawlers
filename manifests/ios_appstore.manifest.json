@@ -1,0 +1,46 @@
+{
+  "manifest_version": 1,
+  "slug": "ios_appstore",
+  "name": "iOS App Store",
+  "description": "Crawls iOS App Store reviews",
+  "type": "ios_appstore",
+  "api_type": "browser",
+  "crawler_type": "entity",
+  "file": "crawlers/ios_appstore.ts",
+  "has_discover": true,
+  "options_schema": {
+    "description": "iOS App Store crawler options",
+    "$id": "IOSAppStoreOptions",
+    "type": "object",
+    "required": [
+      "app_id",
+      "country"
+    ],
+    "properties": {
+      "app_id": {
+        "description": "iOS App Store ID (e.g., \"324684580\" for Spotify)",
+        "minLength": 1,
+        "type": "string"
+      },
+      "country": {
+        "description": "ISO country code (e.g., \"US\", \"GB\")",
+        "minLength": 2,
+        "maxLength": 2,
+        "pattern": "^[A-Z]{2}$",
+        "type": "string"
+      },
+      "app_name": {
+        "description": "App name for fallback search if app_id lookup fails",
+        "minLength": 1,
+        "type": "string"
+      }
+    }
+  },
+  "auth_schema": {
+    "methods": [
+      {
+        "type": "none"
+      }
+    ]
+  }
+}

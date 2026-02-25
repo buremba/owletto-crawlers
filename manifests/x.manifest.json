@@ -1,0 +1,46 @@
+{
+  "manifest_version": 1,
+  "slug": "x",
+  "name": "X (Twitter)",
+  "description": "Crawls X/Twitter posts and mentions",
+  "type": "x",
+  "api_type": "browser",
+  "crawler_type": "entity",
+  "file": "crawlers/x.ts",
+  "has_discover": true,
+  "options_schema": {
+    "description": "X (Twitter) crawler options using twitter-scraper library",
+    "$id": "XOptions",
+    "type": "object",
+    "required": [
+      "search_query"
+    ],
+    "properties": {
+      "search_query": {
+        "description": "Search query for tweets (e.g., \"nodejs\", \"#programming\", \"from:user\")",
+        "minLength": 1,
+        "type": "string"
+      },
+      "min_engagement_for_threads": {
+        "description": "Minimum engagement score to fetch conversation threads (default: 100)",
+        "minimum": 0,
+        "default": 100,
+        "type": "number"
+      },
+      "max_threads_to_fetch": {
+        "description": "Maximum number of conversation threads to fetch, ranked by engagement (default: 100)",
+        "minimum": 1,
+        "maximum": 500,
+        "default": 100,
+        "type": "number"
+      }
+    }
+  },
+  "auth_schema": {
+    "methods": [
+      {
+        "type": "none"
+      }
+    ]
+  }
+}
