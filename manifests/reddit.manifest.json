@@ -82,13 +82,13 @@
             "key": "REDDIT_CLIENT_ID",
             "label": "Reddit Client ID",
             "description": "OAuth app client ID from https://www.reddit.com/prefs/apps",
-            "example": "reddit_app_client_id"
+            "example": "xYz12AbCdEfGhIJ"
           },
           {
             "key": "REDDIT_CLIENT_SECRET",
             "label": "Reddit Client Secret",
             "description": "OAuth app client secret from https://www.reddit.com/prefs/apps",
-            "example": "reddit_app_client_secret",
+            "example": "n0Pq1Rs2Tu3Vw4Xy5Za6Bc7De8F",
             "secret": true
           }
         ],

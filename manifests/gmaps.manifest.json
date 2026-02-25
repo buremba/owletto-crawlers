@@ -37,7 +37,7 @@
           {
             "key": "GOOGLE_MAPS_API_KEY",
             "label": "Google Maps API Key",
-            "example": "AIzaSyExampleKey",
+            "example": "AIzaSyD8rL2mQ5pV9xC4nB7kT1wF6yH3uJ0sA2",
             "secret": true
           }
         ]

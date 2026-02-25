@@ -109,21 +109,21 @@
             "key": "GITHUB_CLIENT_ID",
             "label": "GitHub Client ID",
             "description": "OAuth App client ID used for GitHub account linking.",
-            "example": "github_oauth_client_id"
+            "example": "Iv1.6f9c2a1d8b4e7a3c"
           },
           {
             "key": "GITHUB_CLIENT_SECRET",
             "label": "GitHub Client Secret",
             "secret": true,
             "description": "OAuth App client secret used for GitHub account linking.",
-            "example": "github_oauth_client_secret"
+            "example": "7a6f5d4c3b2a1098e7d6c5b4a3f2e1d0c9b8a7f6"
           },
           {
             "key": "GITHUB_TOKEN",
             "label": "GitHub Token",
             "secret": true,
             "description": "Personal access token used as fallback auth for API requests.",
-            "example": "github_pat_token"
+            "example": "ghp_M4nY2k8Qp7Rr5sTt3uVv9WwXx1YyZzAaBbCcD"
           }
         ]
       }
