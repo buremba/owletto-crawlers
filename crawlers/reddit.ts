@@ -21,6 +21,7 @@ import type {
   Env,
   ParentSourceDefinition,
   SearchResult,
+  SessionState,
 } from '@owletto/sdk';
 import { calculateEngagementScore, RateLimitError } from '@owletto/sdk';
 import { createAuthenticatedClient, httpClient } from '@owletto/sdk';
@@ -165,6 +166,7 @@ export class RedditCrawler extends ApiPaginatedCrawler<
     PERCENT_RANK() OVER (PARTITION BY f.source_id ORDER BY f.score) * 100 * 0.6 +
     LEAST(f.content_length / 20.0, 100) * 0.4
   `;
+  readonly requiredEnvKeys = ['REDDIT_CLIENT_ID', 'REDDIT_CLIENT_SECRET'];
 
   // OAuth token cache
   private accessToken: string | null = null;
@@ -557,6 +559,7 @@ export class RedditCrawler extends ApiPaginatedCrawler<
     options: RedditOptions,
     checkpoint: RedditCheckpoint | null,
     env: Env,
+    _sessionState?: SessionState | null,
     updateCheckpointFn?: (checkpoint: Checkpoint) => Promise<void>
   ): Promise<CrawlResult> {
     // Store current context
