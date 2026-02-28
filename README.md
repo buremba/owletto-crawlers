@@ -1,13 +1,13 @@
-# Owletto Crawlers
+# Owletto Connectors
 
-Installable crawler plugins for [Owletto](https://github.com/buremba/owletto).
+Installable connector plugins for [Owletto](https://github.com/buremba/owletto).
 
-Each crawler is a standalone TypeScript file that imports from `@owletto/sdk` and can be installed into an Owletto instance via the `manage_crawler_templates` MCP tool.
+Each connector is a standalone TypeScript file that imports from `@owletto/sdk` and can be installed into an Owletto instance via the `manage_connections` tool.
 
-## Available Crawlers
+## Available Connectors
 
-| Crawler | Type | Description |
-|---------|------|-------------|
+| Connector | Type | Description |
+|-----------|------|-------------|
 | Reddit | API | Subreddit posts and comments |
 | GitHub | API | Repository issues and discussions |
 | Hacker News | API | Stories and comments |
@@ -22,26 +22,20 @@ Each crawler is a standalone TypeScript file that imports from `@owletto/sdk` an
 
 ## Installation
 
-Use the `manage_crawler_templates` tool with the `install` action:
+Use the `manage_connections` tool with the `install_connector` action:
 
 ```
-action: install
-registry_slug: reddit
+action: install_connector
+registry_key: reddit
 ```
 
 Or install from a URL:
 
 ```
-action: install
-source_url: https://raw.githubusercontent.com/buremba/owletto-crawlers/main/crawlers/reddit.ts
+action: install_connector
+source_url: https://raw.githubusercontent.com/buremba/owletto-sources/main/connectors/reddit.ts
 ```
 
-## Writing Custom Crawlers
+## Writing Custom Connectors
 
-Crawlers extend base classes from `@owletto/sdk`:
-
-- `BaseCrawler` - Simple crawlers
-- `ApiPaginatedCrawler` - API-based with pagination
-- `BrowserPaginatedCrawler` - Browser-based with pagination
-
-See existing crawlers for examples.
+Connectors extend base classes from `@owletto/sdk`. See existing connectors for examples.

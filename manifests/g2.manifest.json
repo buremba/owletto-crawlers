@@ -1,15 +1,19 @@
 {
-  "manifest_version": 1,
-  "slug": "g2",
+  "manifest_version": 2,
+  "key": "g2",
   "name": "G2",
-  "description": "Crawls G2 product reviews",
-  "type": "g2",
-  "api_type": "browser",
-  "crawler_type": "entity",
-  "file": "crawlers/g2.ts",
-  "has_discover": true,
-  "options_schema": {
-    "description": "G2 crawler options - requires trusted browser session for local execution",
+  "description": "Collects G2 product reviews",
+  "version": "1.0.0",
+  "file": "connectors/g2.ts",
+  "authSchema": {
+    "methods": [
+      {
+        "type": "none"
+      }
+    ]
+  },
+  "optionsSchema": {
+    "description": "G2 connector options - requires trusted browser session for local execution",
     "$id": "G2Options",
     "type": "object",
     "required": [
@@ -30,12 +34,5 @@
         "type": "number"
       }
     }
-  },
-  "auth_schema": {
-    "methods": [
-      {
-        "type": "none"
-      }
-    ]
   }
 }

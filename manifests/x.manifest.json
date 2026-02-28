@@ -1,15 +1,19 @@
 {
-  "manifest_version": 1,
-  "slug": "x",
+  "manifest_version": 2,
+  "key": "x",
   "name": "X (Twitter)",
-  "description": "Crawls X/Twitter posts and mentions",
-  "type": "x",
-  "api_type": "browser",
-  "crawler_type": "entity",
-  "file": "crawlers/x.ts",
-  "has_discover": true,
-  "options_schema": {
-    "description": "X (Twitter) crawler options using twitter-scraper library",
+  "description": "Collects X/Twitter posts and mentions",
+  "version": "1.0.0",
+  "file": "connectors/x.ts",
+  "authSchema": {
+    "methods": [
+      {
+        "type": "none"
+      }
+    ]
+  },
+  "optionsSchema": {
+    "description": "X (Twitter) connector options using twitter-scraper library",
     "$id": "XOptions",
     "type": "object",
     "required": [
@@ -35,12 +39,5 @@
         "type": "number"
       }
     }
-  },
-  "auth_schema": {
-    "methods": [
-      {
-        "type": "none"
-      }
-    ]
   }
 }

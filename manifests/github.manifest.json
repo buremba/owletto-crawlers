@@ -1,15 +1,59 @@
 {
-  "manifest_version": 1,
-  "slug": "github",
+  "manifest_version": 2,
+  "key": "github",
   "name": "GitHub",
-  "description": "Crawls GitHub issues and discussions from repositories",
-  "type": "github",
-  "api_type": "api",
-  "crawler_type": "entity",
-  "file": "crawlers/github.ts",
-  "has_discover": true,
-  "options_schema": {
-    "description": "GitHub crawler options - each crawler tracks ONE content type",
+  "description": "Collects GitHub issues and discussions from repositories",
+  "version": "1.0.0",
+  "file": "connectors/github.ts",
+  "authSchema": {
+    "methods": [
+      {
+        "type": "oauth",
+        "provider": "github",
+        "requiredScopes": [
+          "repo",
+          "read:user"
+        ],
+        "authorizationUrl": "https://github.com/login/oauth/authorize",
+        "tokenUrl": "https://github.com/login/oauth/access_token",
+        "description": "GitHub OAuth enables access to private repositories and higher rate limits (5000 req/hour)",
+        "required": false,
+        "scope": "source",
+        "clientIdKey": "GITHUB_CLIENT_ID",
+        "clientSecretKey": "GITHUB_CLIENT_SECRET"
+      },
+      {
+        "type": "env_keys",
+        "required": false,
+        "scope": "source",
+        "description": "Optional OAuth app credentials and fallback token.",
+        "fields": [
+          {
+            "key": "GITHUB_CLIENT_ID",
+            "label": "GitHub Client ID",
+            "description": "OAuth App client ID used for GitHub account linking.",
+            "example": "Iv1.6f9c2a1d8b4e7a3c"
+          },
+          {
+            "key": "GITHUB_CLIENT_SECRET",
+            "label": "GitHub Client Secret",
+            "secret": true,
+            "description": "OAuth App client secret used for GitHub account linking.",
+            "example": "7a6f5d4c3b2a1098e7d6c5b4a3f2e1d0c9b8a7f6"
+          },
+          {
+            "key": "GITHUB_TOKEN",
+            "label": "GitHub Token",
+            "secret": true,
+            "description": "Personal access token used as fallback auth for API requests.",
+            "example": "ghp_M4nY2k8Qp7Rr5sTt3uVv9WwXx1YyZzAaBbCcD"
+          }
+        ]
+      }
+    ]
+  },
+  "optionsSchema": {
+    "description": "GitHub connector options - each connector tracks ONE content type",
     "$id": "GitHubOptions",
     "type": "object",
     "required": [
@@ -31,7 +75,7 @@
         "type": "string"
       },
       "content_type": {
-        "description": "Content type: ONE type per crawler for reliable checkpointing. Create separate crawlers for different types.",
+        "description": "Content type: ONE type per connector for reliable checkpointing. Create separate connectors for different types.",
         "anyOf": [
           {
             "const": "issues",
@@ -81,52 +125,5 @@
         "type": "number"
       }
     }
-  },
-  "auth_schema": {
-    "methods": [
-      {
-        "type": "oauth",
-        "provider": "github",
-        "requiredScopes": [
-          "repo",
-          "read:user"
-        ],
-        "authorizationUrl": "https://github.com/login/oauth/authorize",
-        "tokenUrl": "https://github.com/login/oauth/access_token",
-        "description": "GitHub OAuth enables access to private repositories and higher rate limits (5000 req/hour)",
-        "required": false,
-        "scope": "source",
-        "clientIdKey": "GITHUB_CLIENT_ID",
-        "clientSecretKey": "GITHUB_CLIENT_SECRET"
-      },
-      {
-        "type": "env_keys",
-        "required": false,
-        "scope": "source",
-        "description": "Optional OAuth app credentials and fallback token.",
-        "fields": [
-          {
-            "key": "GITHUB_CLIENT_ID",
-            "label": "GitHub Client ID",
-            "description": "OAuth App client ID used for GitHub account linking.",
-            "example": "Iv1.6f9c2a1d8b4e7a3c"
-          },
-          {
-            "key": "GITHUB_CLIENT_SECRET",
-            "label": "GitHub Client Secret",
-            "secret": true,
-            "description": "OAuth App client secret used for GitHub account linking.",
-            "example": "7a6f5d4c3b2a1098e7d6c5b4a3f2e1d0c9b8a7f6"
-          },
-          {
-            "key": "GITHUB_TOKEN",
-            "label": "GitHub Token",
-            "secret": true,
-            "description": "Personal access token used as fallback auth for API requests.",
-            "example": "ghp_M4nY2k8Qp7Rr5sTt3uVv9WwXx1YyZzAaBbCcD"
-          }
-        ]
-      }
-    ]
   }
 }
