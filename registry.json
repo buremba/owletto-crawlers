@@ -1,47 +1,47 @@
 {
-  "crawlers": [
+  "connectors": [
     {
-      "slug": "capterra",
+      "key": "capterra",
       "manifest": "manifests/capterra.manifest.json"
     },
     {
-      "slug": "g2",
+      "key": "g2",
       "manifest": "manifests/g2.manifest.json"
     },
     {
-      "slug": "github",
+      "key": "github",
       "manifest": "manifests/github.manifest.json"
     },
     {
-      "slug": "glassdoor",
+      "key": "glassdoor",
       "manifest": "manifests/glassdoor.manifest.json"
     },
     {
-      "slug": "gmaps",
+      "key": "gmaps",
       "manifest": "manifests/gmaps.manifest.json"
     },
     {
-      "slug": "google_play",
+      "key": "google_play",
       "manifest": "manifests/google_play.manifest.json"
     },
     {
-      "slug": "hackernews",
+      "key": "hackernews",
       "manifest": "manifests/hackernews.manifest.json"
     },
     {
-      "slug": "ios_appstore",
+      "key": "ios_appstore",
       "manifest": "manifests/ios_appstore.manifest.json"
     },
     {
-      "slug": "reddit",
+      "key": "reddit",
       "manifest": "manifests/reddit.manifest.json"
     },
     {
-      "slug": "trustpilot",
+      "key": "trustpilot",
       "manifest": "manifests/trustpilot.manifest.json"
     },
     {
-      "slug": "x",
+      "key": "x",
       "manifest": "manifests/x.manifest.json"
     }
   ]

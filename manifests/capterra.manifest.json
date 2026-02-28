@@ -1,15 +1,19 @@
 {
-  "manifest_version": 1,
-  "slug": "capterra",
+  "manifest_version": 2,
+  "key": "capterra",
   "name": "Capterra",
-  "description": "Crawls Capterra software reviews",
-  "type": "capterra",
-  "api_type": "browser",
-  "crawler_type": "entity",
-  "file": "crawlers/capterra.ts",
-  "has_discover": true,
-  "options_schema": {
-    "description": "Capterra crawler options",
+  "description": "Collects Capterra software reviews",
+  "version": "1.0.0",
+  "file": "connectors/capterra.ts",
+  "authSchema": {
+    "methods": [
+      {
+        "type": "none"
+      }
+    ]
+  },
+  "optionsSchema": {
+    "description": "Capterra connector options",
     "$id": "CapterraOptions",
     "type": "object",
     "required": [
@@ -39,12 +43,5 @@
         "type": "number"
       }
     }
-  },
-  "auth_schema": {
-    "methods": [
-      {
-        "type": "none"
-      }
-    ]
   }
 }

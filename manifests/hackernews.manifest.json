@@ -1,15 +1,19 @@
 {
-  "manifest_version": 1,
-  "slug": "hackernews",
+  "manifest_version": 2,
+  "key": "hackernews",
   "name": "Hacker News",
-  "description": "Crawls Hacker News stories and comments",
-  "type": "hackernews",
-  "api_type": "api",
-  "crawler_type": "search",
-  "file": "crawlers/hackernews.ts",
-  "has_discover": true,
-  "options_schema": {
-    "description": "HackerNews crawler options - each crawler tracks ONE content type",
+  "description": "Collects Hacker News stories and comments",
+  "version": "1.0.0",
+  "file": "connectors/hackernews.ts",
+  "authSchema": {
+    "methods": [
+      {
+        "type": "none"
+      }
+    ]
+  },
+  "optionsSchema": {
+    "description": "HackerNews connector options - each connector tracks ONE content type",
     "$id": "HackerNewsOptions",
     "type": "object",
     "required": [
@@ -23,7 +27,7 @@
         "type": "string"
       },
       "content_type": {
-        "description": "Content type: ONE type per crawler for reliable checkpointing. Create separate crawlers for different types.",
+        "description": "Content type: ONE type per connector for reliable checkpointing. Create separate connectors for different types.",
         "anyOf": [
           {
             "const": "story",
@@ -59,12 +63,5 @@
         "type": "number"
       }
     }
-  },
-  "auth_schema": {
-    "methods": [
-      {
-        "type": "none"
-      }
-    ]
   }
 }

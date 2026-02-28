@@ -1,15 +1,19 @@
 {
-  "manifest_version": 1,
-  "slug": "glassdoor",
+  "manifest_version": 2,
+  "key": "glassdoor",
   "name": "Glassdoor",
-  "description": "Crawls Glassdoor company reviews",
-  "type": "glassdoor",
-  "api_type": "browser",
-  "crawler_type": "entity",
-  "file": "crawlers/glassdoor.ts",
-  "has_discover": true,
-  "options_schema": {
-    "description": "Glassdoor crawler options",
+  "description": "Collects Glassdoor company reviews",
+  "version": "1.0.0",
+  "file": "connectors/glassdoor.ts",
+  "authSchema": {
+    "methods": [
+      {
+        "type": "none"
+      }
+    ]
+  },
+  "optionsSchema": {
+    "description": "Glassdoor connector options",
     "$id": "GlassdoorOptions",
     "type": "object",
     "required": [
@@ -34,12 +38,5 @@
         "type": "number"
       }
     }
-  },
-  "auth_schema": {
-    "methods": [
-      {
-        "type": "none"
-      }
-    ]
   }
 }

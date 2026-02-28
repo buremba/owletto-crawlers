@@ -1,15 +1,19 @@
 {
-  "manifest_version": 1,
-  "slug": "google_play",
+  "manifest_version": 2,
+  "key": "google_play",
   "name": "Google Play Store",
-  "description": "Crawls Google Play Store app reviews",
-  "type": "google_play",
-  "api_type": "api",
-  "crawler_type": "entity",
-  "file": "crawlers/google_play.ts",
-  "has_discover": true,
-  "options_schema": {
-    "description": "Google Play Store crawler options",
+  "description": "Collects Google Play Store app reviews",
+  "version": "1.0.0",
+  "file": "connectors/google_play.ts",
+  "authSchema": {
+    "methods": [
+      {
+        "type": "none"
+      }
+    ]
+  },
+  "optionsSchema": {
+    "description": "Google Play Store connector options",
     "$id": "GooglePlayOptions",
     "type": "object",
     "required": [
@@ -37,12 +41,5 @@
         "type": "string"
       }
     }
-  },
-  "auth_schema": {
-    "methods": [
-      {
-        "type": "none"
-      }
-    ]
   }
 }

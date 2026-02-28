@@ -1,15 +1,19 @@
 {
-  "manifest_version": 1,
-  "slug": "trustpilot",
+  "manifest_version": 2,
+  "key": "trustpilot",
   "name": "Trustpilot",
-  "description": "Crawls Trustpilot reviews for businesses",
-  "type": "trustpilot",
-  "api_type": "browser",
-  "crawler_type": "entity",
-  "file": "crawlers/trustpilot.ts",
-  "has_discover": true,
-  "options_schema": {
-    "description": "Trustpilot crawler options - requires either business_url or business_name",
+  "description": "Collects Trustpilot reviews for businesses",
+  "version": "1.0.0",
+  "file": "connectors/trustpilot.ts",
+  "authSchema": {
+    "methods": [
+      {
+        "type": "none"
+      }
+    ]
+  },
+  "optionsSchema": {
+    "description": "Trustpilot connector options - requires either business_url or business_name",
     "$id": "TrustpilotOptions",
     "type": "object",
     "properties": {
@@ -31,12 +35,5 @@
         "type": "number"
       }
     }
-  },
-  "auth_schema": {
-    "methods": [
-      {
-        "type": "none"
-      }
-    ]
   }
 }

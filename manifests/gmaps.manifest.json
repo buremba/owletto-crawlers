@@ -1,15 +1,29 @@
 {
-  "manifest_version": 1,
-  "slug": "gmaps",
+  "manifest_version": 2,
+  "key": "gmaps",
   "name": "Google Maps",
-  "description": "Crawls Google Maps place reviews",
-  "type": "gmaps",
-  "api_type": "api",
-  "crawler_type": "entity",
-  "file": "crawlers/gmaps.ts",
-  "has_discover": true,
-  "options_schema": {
-    "description": "Google Maps crawler options - requires either place_id or business_name",
+  "description": "Collects Google Maps place reviews",
+  "version": "1.0.0",
+  "file": "connectors/gmaps.ts",
+  "authSchema": {
+    "methods": [
+      {
+        "type": "env_keys",
+        "required": true,
+        "scope": "source",
+        "fields": [
+          {
+            "key": "GOOGLE_MAPS_API_KEY",
+            "label": "Google Maps API Key",
+            "example": "AIzaSyD8rL2mQ5pV9xC4nB7kT1wF6yH3uJ0sA2",
+            "secret": true
+          }
+        ]
+      }
+    ]
+  },
+  "optionsSchema": {
+    "description": "Google Maps connector options - requires either place_id or business_name",
     "$id": "GoogleMapsOptions",
     "type": "object",
     "properties": {
@@ -26,22 +40,5 @@
         "type": "string"
       }
     }
-  },
-  "auth_schema": {
-    "methods": [
-      {
-        "type": "env_keys",
-        "required": true,
-        "scope": "source",
-        "fields": [
-          {
-            "key": "GOOGLE_MAPS_API_KEY",
-            "label": "Google Maps API Key",
-            "example": "AIzaSyD8rL2mQ5pV9xC4nB7kT1wF6yH3uJ0sA2",
-            "secret": true
-          }
-        ]
-      }
-    ]
   }
 }
