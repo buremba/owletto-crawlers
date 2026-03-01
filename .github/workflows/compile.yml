@@ -17,7 +17,8 @@ jobs:
 
       - uses: actions/checkout@v4
         with:
-          repository: buremba/owletto
+          repository: lobu-ai/owletto
+          token: ${{ secrets.OWLETTO_PAT }}
           path: _owletto
           sparse-checkout: |
             packages/sdk
