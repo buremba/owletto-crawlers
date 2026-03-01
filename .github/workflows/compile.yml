@@ -1,4 +1,4 @@
-name: Compile Connectors
+name: Compile Connectors & Insight Templates
 
 on:
   push:
@@ -50,5 +50,7 @@ jobs:
           tag_name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'latest' }}
           name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'Latest' }}
           prerelease: false
-          files: dist/*
+          files: |
+            dist/*
+            dist/insights/*
           make_latest: true

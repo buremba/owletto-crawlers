@@ -1,0 +1,129 @@
+{
+  "slug": "github-project-health",
+  "name": "GitHub Project Health",
+  "description": "Analyze the health and activity of a GitHub repository. Tracks issue resolution rates, PR velocity, community engagement, and identifies areas needing attention.",
+  "version": 1,
+  "prompt": "You are a developer relations analyst evaluating the health of an open-source project based on its GitHub activity. Analyze the provided issues, pull requests, and discussions.\n\nEvaluate:\n- Issue health: open vs closed ratio, average resolution time, stale issues, most common labels\n- PR velocity: merge rate, average time to merge, review coverage\n- Community engagement: number of unique contributors, new vs returning contributors, discussion activity\n- Areas needing attention: issues with most reactions, long-open critical bugs, PRs stuck in review\n\nProduce a structured health report:\n- health_score: 0-100 overall project health score\n- issue_metrics: resolution rate, avg time to close, stale count, label distribution\n- pr_metrics: merge rate, avg time to merge, open PR count\n- community_metrics: contributor count, engagement trends\n- attention_needed: prioritized list of items that need immediate attention\n- highlights: positive developments and achievements to celebrate",
+  "extraction_schema": {
+    "type": "object",
+    "properties": {
+      "health_score": { "type": "integer", "minimum": 0, "maximum": 100 },
+      "issue_metrics": {
+        "type": "object",
+        "properties": {
+          "total_open": { "type": "integer" },
+          "total_closed": { "type": "integer" },
+          "resolution_rate_pct": { "type": "number" },
+          "avg_days_to_close": { "type": "number" },
+          "stale_count": { "type": "integer" },
+          "top_labels": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": { "type": "string" },
+                "count": { "type": "integer" }
+              }
+            }
+          }
+        }
+      },
+      "pr_metrics": {
+        "type": "object",
+        "properties": {
+          "total_open": { "type": "integer" },
+          "total_merged": { "type": "integer" },
+          "merge_rate_pct": { "type": "number" },
+          "avg_days_to_merge": { "type": "number" }
+        }
+      },
+      "community_metrics": {
+        "type": "object",
+        "properties": {
+          "unique_contributors": { "type": "integer" },
+          "new_contributors": { "type": "integer" },
+          "engagement_trend": { "type": "string", "enum": ["growing", "stable", "declining"] }
+        }
+      },
+      "attention_needed": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": { "type": "string" },
+            "type": { "type": "string", "enum": ["issue", "pr", "discussion"] },
+            "reason": { "type": "string" },
+            "priority": { "type": "string", "enum": ["critical", "high", "medium"] },
+            "url": { "type": "string" }
+          }
+        }
+      },
+      "highlights": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "highlight": { "type": "string" },
+            "category": { "type": "string", "enum": ["milestone", "community", "velocity", "quality"] }
+          }
+        }
+      }
+    }
+  },
+  "data_sources": {
+    "activity": {
+      "type": "signals",
+      "filters": {
+        "limit": 200
+      }
+    }
+  },
+  "json_template": {
+    "type": "layout",
+    "direction": "vertical",
+    "children": [
+      {
+        "type": "columns",
+        "children": [
+          { "type": "metric", "label": "Health Score", "value": "{{health_score}}/100" },
+          { "type": "metric", "label": "Issue Resolution", "value": "{{issue_metrics.resolution_rate_pct}}%" },
+          { "type": "metric", "label": "PR Merge Rate", "value": "{{pr_metrics.merge_rate_pct}}%" },
+          { "type": "metric", "label": "Contributors", "value": "{{community_metrics.unique_contributors}}" }
+        ]
+      },
+      {
+        "type": "columns",
+        "children": [
+          { "type": "metric", "label": "Open Issues", "value": "{{issue_metrics.total_open}}" },
+          { "type": "metric", "label": "Stale Issues", "value": "{{issue_metrics.stale_count}}" },
+          { "type": "metric", "label": "Open PRs", "value": "{{pr_metrics.total_open}}" },
+          { "type": "metric", "label": "Engagement", "value": "{{community_metrics.engagement_trend}}" }
+        ]
+      },
+      {
+        "type": "table",
+        "title": "Needs Attention",
+        "data": "{{attention_needed}}",
+        "columns": ["title", "type", "priority", "reason"]
+      },
+      {
+        "type": "table",
+        "title": "Highlights",
+        "data": "{{highlights}}",
+        "columns": ["highlight", "category"]
+      }
+    ]
+  },
+  "classifiers": [
+    {
+      "slug": "attention-priority",
+      "name": "Attention Priority",
+      "source_path": "$.attention_needed[*]",
+      "value_field": "priority"
+    }
+  ],
+  "source_types": {
+    "required": ["github"],
+    "recommended": []
+  }
+}

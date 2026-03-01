@@ -1,0 +1,139 @@
+{
+  "slug": "review-analysis",
+  "name": "Review Analysis",
+  "description": "Analyze product and service reviews across platforms. Extracts sentiment trends, recurring themes, feature requests, and competitive insights from customer feedback.",
+  "version": 1,
+  "prompt": "You are a product analyst reviewing customer feedback. Analyze the provided reviews and extract structured insights.\n\nFor each review, identify:\n- Overall sentiment (positive, negative, mixed)\n- Key themes mentioned (e.g. ease of use, pricing, support, performance, reliability)\n- Specific feature requests or complaints\n- Competitive mentions (other products mentioned)\n\nThen produce a summary with:\n- sentiment_distribution: counts of positive/negative/mixed reviews\n- top_themes: the most frequently mentioned themes with counts and representative quotes\n- feature_requests: specific features users want, ranked by frequency\n- pain_points: the biggest complaints, ranked by severity and frequency\n- competitive_mentions: other products mentioned and in what context\n- overall_score: average rating if available\n- trend: whether sentiment is improving, declining, or stable compared to older reviews",
+  "extraction_schema": {
+    "type": "object",
+    "properties": {
+      "summary": {
+        "type": "object",
+        "properties": {
+          "total_reviews_analyzed": { "type": "integer" },
+          "overall_score": { "type": "number" },
+          "trend": { "type": "string", "enum": ["improving", "declining", "stable"] }
+        }
+      },
+      "sentiment_distribution": {
+        "type": "object",
+        "properties": {
+          "positive": { "type": "integer" },
+          "negative": { "type": "integer" },
+          "mixed": { "type": "integer" }
+        }
+      },
+      "top_themes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "theme": { "type": "string" },
+            "count": { "type": "integer" },
+            "sentiment": { "type": "string", "enum": ["positive", "negative", "mixed"] },
+            "representative_quote": { "type": "string" }
+          }
+        }
+      },
+      "feature_requests": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "feature": { "type": "string" },
+            "frequency": { "type": "integer" },
+            "urgency": { "type": "string", "enum": ["high", "medium", "low"] }
+          }
+        }
+      },
+      "pain_points": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "issue": { "type": "string" },
+            "frequency": { "type": "integer" },
+            "severity": { "type": "string", "enum": ["critical", "major", "minor"] }
+          }
+        }
+      },
+      "competitive_mentions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "product": { "type": "string" },
+            "context": { "type": "string", "enum": ["switching_from", "switching_to", "comparison", "complement"] },
+            "count": { "type": "integer" }
+          }
+        }
+      }
+    }
+  },
+  "data_sources": {
+    "reviews": {
+      "type": "signals",
+      "filters": {
+        "limit": 200
+      }
+    }
+  },
+  "json_template": {
+    "type": "layout",
+    "direction": "vertical",
+    "children": [
+      {
+        "type": "columns",
+        "children": [
+          { "type": "metric", "label": "Reviews Analyzed", "value": "{{summary.total_reviews_analyzed}}" },
+          { "type": "metric", "label": "Overall Score", "value": "{{summary.overall_score}}" },
+          { "type": "metric", "label": "Trend", "value": "{{summary.trend}}" }
+        ]
+      },
+      {
+        "type": "columns",
+        "children": [
+          { "type": "metric", "label": "Positive", "value": "{{sentiment_distribution.positive}}" },
+          { "type": "metric", "label": "Negative", "value": "{{sentiment_distribution.negative}}" },
+          { "type": "metric", "label": "Mixed", "value": "{{sentiment_distribution.mixed}}" }
+        ]
+      },
+      {
+        "type": "table",
+        "title": "Top Themes",
+        "data": "{{top_themes}}",
+        "columns": ["theme", "count", "sentiment"]
+      },
+      {
+        "type": "table",
+        "title": "Feature Requests",
+        "data": "{{feature_requests}}",
+        "columns": ["feature", "frequency", "urgency"]
+      },
+      {
+        "type": "table",
+        "title": "Pain Points",
+        "data": "{{pain_points}}",
+        "columns": ["issue", "frequency", "severity"]
+      }
+    ]
+  },
+  "classifiers": [
+    {
+      "slug": "review-sentiment",
+      "name": "Review Sentiment",
+      "source_path": "$.top_themes[*]",
+      "value_field": "sentiment"
+    },
+    {
+      "slug": "pain-point-severity",
+      "name": "Pain Point Severity",
+      "source_path": "$.pain_points[*]",
+      "value_field": "severity"
+    }
+  ],
+  "source_types": {
+    "required": [],
+    "recommended": ["capterra", "g2", "trustpilot", "glassdoor", "google_play", "ios_appstore", "gmaps"]
+  }
+}

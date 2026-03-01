@@ -1,0 +1,155 @@
+{
+  "slug": "social-listening",
+  "name": "Social Listening",
+  "description": "Monitor and analyze social media and community discussions about your product or brand. Tracks mention volume, sentiment, key topics, and influential voices.",
+  "version": 1,
+  "prompt": "You are a social media analyst monitoring online discussions about a product or brand. Analyze the provided posts, comments, and discussions.\n\nFor each piece of content, identify:\n- Sentiment (positive, negative, neutral)\n- Topic category (bug report, feature discussion, praise, complaint, question, announcement, comparison)\n- Engagement level based on upvotes/likes/comments\n- Whether the author appears to be an influencer or power user\n\nProduce a structured summary:\n- mention_volume: total mentions and breakdown by platform\n- sentiment_overview: overall sentiment distribution\n- trending_topics: what people are talking about most, with example posts\n- influential_posts: high-engagement posts that are shaping the conversation\n- questions_and_issues: unresolved questions or reported bugs the community is discussing\n- opportunities: positive trends or feature requests that represent growth opportunities\n- risk_signals: negative trends, viral complaints, or emerging PR issues",
+  "extraction_schema": {
+    "type": "object",
+    "properties": {
+      "mention_volume": {
+        "type": "object",
+        "properties": {
+          "total": { "type": "integer" },
+          "by_platform": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "platform": { "type": "string" },
+                "count": { "type": "integer" }
+              }
+            }
+          }
+        }
+      },
+      "sentiment_overview": {
+        "type": "object",
+        "properties": {
+          "positive_pct": { "type": "number" },
+          "negative_pct": { "type": "number" },
+          "neutral_pct": { "type": "number" },
+          "trend": { "type": "string", "enum": ["improving", "declining", "stable"] }
+        }
+      },
+      "trending_topics": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "topic": { "type": "string" },
+            "mention_count": { "type": "integer" },
+            "sentiment": { "type": "string", "enum": ["positive", "negative", "neutral", "mixed"] },
+            "example_title": { "type": "string" }
+          }
+        }
+      },
+      "influential_posts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": { "type": "string" },
+            "author": { "type": "string" },
+            "platform": { "type": "string" },
+            "engagement_score": { "type": "number" },
+            "sentiment": { "type": "string" },
+            "summary": { "type": "string" }
+          }
+        }
+      },
+      "questions_and_issues": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "question": { "type": "string" },
+            "frequency": { "type": "integer" },
+            "resolved": { "type": "boolean" }
+          }
+        }
+      },
+      "opportunities": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "opportunity": { "type": "string" },
+            "evidence_count": { "type": "integer" },
+            "impact": { "type": "string", "enum": ["high", "medium", "low"] }
+          }
+        }
+      },
+      "risk_signals": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "signal": { "type": "string" },
+            "severity": { "type": "string", "enum": ["critical", "warning", "watch"] },
+            "evidence_count": { "type": "integer" }
+          }
+        }
+      }
+    }
+  },
+  "data_sources": {
+    "discussions": {
+      "type": "signals",
+      "filters": {
+        "limit": 150
+      }
+    }
+  },
+  "json_template": {
+    "type": "layout",
+    "direction": "vertical",
+    "children": [
+      {
+        "type": "columns",
+        "children": [
+          { "type": "metric", "label": "Total Mentions", "value": "{{mention_volume.total}}" },
+          { "type": "metric", "label": "Positive", "value": "{{sentiment_overview.positive_pct}}%" },
+          { "type": "metric", "label": "Negative", "value": "{{sentiment_overview.negative_pct}}%" },
+          { "type": "metric", "label": "Trend", "value": "{{sentiment_overview.trend}}" }
+        ]
+      },
+      {
+        "type": "table",
+        "title": "Trending Topics",
+        "data": "{{trending_topics}}",
+        "columns": ["topic", "mention_count", "sentiment"]
+      },
+      {
+        "type": "table",
+        "title": "Risk Signals",
+        "data": "{{risk_signals}}",
+        "columns": ["signal", "severity", "evidence_count"]
+      },
+      {
+        "type": "table",
+        "title": "Opportunities",
+        "data": "{{opportunities}}",
+        "columns": ["opportunity", "impact", "evidence_count"]
+      }
+    ]
+  },
+  "classifiers": [
+    {
+      "slug": "discussion-topic",
+      "name": "Discussion Topic",
+      "source_path": "$.trending_topics[*]",
+      "value_field": "topic"
+    },
+    {
+      "slug": "risk-severity",
+      "name": "Risk Severity",
+      "source_path": "$.risk_signals[*]",
+      "value_field": "severity"
+    }
+  ],
+  "source_types": {
+    "required": [],
+    "recommended": ["reddit", "hackernews", "x"]
+  }
+}
