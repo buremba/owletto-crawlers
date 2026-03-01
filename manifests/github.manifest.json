@@ -2,9 +2,9 @@
   "manifest_version": 2,
   "key": "github",
   "name": "GitHub",
-  "description": "Collects GitHub issues and discussions from repositories",
-  "version": "1.0.0",
-  "file": "connectors/github.ts",
+  "description": "Collects GitHub repository content and supports GitHub write actions",
+  "version": "1.1.0",
+  "file": "connectors/github_connector.ts",
   "authSchema": {
     "methods": [
       {
@@ -51,6 +51,246 @@
         ]
       }
     ]
+  },
+  "feeds": {
+    "content": {
+      "key": "content",
+      "name": "Repository Content",
+      "description": "Sync repository issues, PRs, comments, or discussions",
+      "config_schema": {
+        "type": "object",
+        "required": [
+          "repo_owner",
+          "repo_name",
+          "content_type"
+        ],
+        "properties": {
+          "repo_owner": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Repository owner (user or organization)"
+          },
+          "repo_name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Repository name"
+          },
+          "content_type": {
+            "type": "string",
+            "enum": [
+              "issues",
+              "pull_requests",
+              "issue_comments",
+              "pr_comments",
+              "discussions",
+              "discussion_comments"
+            ],
+            "description": "Content type to sync"
+          },
+          "labels_filter": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Optional labels filter for issues/pull requests"
+          },
+          "lookback_days": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 730,
+            "default": 365,
+            "description": "Initial sync lookback window"
+          }
+        }
+      }
+    }
+  },
+  "actions": {
+    "create_issue": {
+      "key": "create_issue",
+      "name": "Create Issue",
+      "description": "Create a new issue in the configured repository",
+      "requiresApproval": true,
+      "input_schema": {
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "assignees": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "repo_owner": {
+            "type": "string"
+          },
+          "repo_name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "add_issue_comment": {
+      "key": "add_issue_comment",
+      "name": "Add Issue Comment",
+      "description": "Add a comment to an issue or pull request",
+      "requiresApproval": true,
+      "input_schema": {
+        "type": "object",
+        "required": [
+          "issue_number",
+          "body"
+        ],
+        "properties": {
+          "issue_number": {
+            "type": "integer"
+          },
+          "body": {
+            "type": "string"
+          },
+          "repo_owner": {
+            "type": "string"
+          },
+          "repo_name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "close_issue": {
+      "key": "close_issue",
+      "name": "Close Issue",
+      "description": "Close an issue by number",
+      "requiresApproval": true,
+      "input_schema": {
+        "type": "object",
+        "required": [
+          "issue_number"
+        ],
+        "properties": {
+          "issue_number": {
+            "type": "integer"
+          },
+          "repo_owner": {
+            "type": "string"
+          },
+          "repo_name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "reopen_issue": {
+      "key": "reopen_issue",
+      "name": "Reopen Issue",
+      "description": "Reopen an issue by number",
+      "requiresApproval": true,
+      "input_schema": {
+        "type": "object",
+        "required": [
+          "issue_number"
+        ],
+        "properties": {
+          "issue_number": {
+            "type": "integer"
+          },
+          "repo_owner": {
+            "type": "string"
+          },
+          "repo_name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "create_pull_request": {
+      "key": "create_pull_request",
+      "name": "Create Pull Request",
+      "description": "Create a pull request from head to base branch",
+      "requiresApproval": true,
+      "input_schema": {
+        "type": "object",
+        "required": [
+          "title",
+          "head",
+          "base"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "head": {
+            "type": "string"
+          },
+          "base": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "draft": {
+            "type": "boolean"
+          },
+          "repo_owner": {
+            "type": "string"
+          },
+          "repo_name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "merge_pull_request": {
+      "key": "merge_pull_request",
+      "name": "Merge Pull Request",
+      "description": "Merge a pull request by number",
+      "requiresApproval": true,
+      "input_schema": {
+        "type": "object",
+        "required": [
+          "pull_number"
+        ],
+        "properties": {
+          "pull_number": {
+            "type": "integer"
+          },
+          "merge_method": {
+            "type": "string",
+            "enum": [
+              "merge",
+              "squash",
+              "rebase"
+            ]
+          },
+          "commit_title": {
+            "type": "string"
+          },
+          "commit_message": {
+            "type": "string"
+          },
+          "repo_owner": {
+            "type": "string"
+          },
+          "repo_name": {
+            "type": "string"
+          }
+        }
+      }
+    }
   },
   "optionsSchema": {
     "description": "GitHub connector options - each connector tracks ONE content type",
