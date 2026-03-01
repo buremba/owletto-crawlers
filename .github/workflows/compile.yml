@@ -49,6 +49,6 @@ jobs:
         with:
           tag_name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'latest' }}
           name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'Latest' }}
-          prerelease: ${{ !startsWith(github.ref, 'refs/tags/') }}
+          prerelease: false
           files: dist/*
-          make_latest: ${{ startsWith(github.ref, 'refs/tags/') }}
+          make_latest: true
