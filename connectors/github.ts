@@ -128,7 +128,7 @@ export default class GitHubConnector extends ConnectorRuntime {
           description:
             'GitHub OAuth enables private repo access and write actions for this connection.',
           setupInstructions:
-            'Create a GitHub OAuth App in GitHub Settings > Developer settings > OAuth Apps. Use Owletto as the application URL, set the authorization callback URL to your Owletto GitHub OAuth callback, then copy the client ID and client secret into the app profile form.',
+            'Create a GitHub OAuth App in GitHub Settings > Developer settings > OAuth Apps. Set the authorization callback URL to {{redirect_uri}}, then copy the client ID and client secret below.',
         },
         {
           type: 'env_keys',
